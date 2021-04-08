@@ -27,12 +27,4 @@ _YOUR_USER_NAME_ and _YOUR_PASSWORD_ in the script should be replaced with the u
 
 ## References
 
-@misc{FredrikGustafsson,
-  author = {Fredrik Gustafsson},
-  title = {deeplabv3},
-  year = {2021},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://https://github.com/fregu856/deeplabv3}},
-  commit = {415d983ec8a3e4ab6977b316d8f553371a415739}
-}
+DeepLab V3 Pytorch Implementation, https://github.com/fregu856/deeplabv3
