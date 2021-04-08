@@ -27,4 +27,18 @@ _YOUR_USER_NAME_ and _YOUR_PASSWORD_ in the script should be replaced with the u
 
 ## References
 
-DeepLab V3 Pytorch Implementation, https://github.com/fregu856/deeplabv3
+1.  **DeepLab: Semantic Image Segmentation with Deep Convolutional Nets,**
+    **Atrous Convolution, and Fully Connected CRFs** <br />
+    Liang-Chieh Chen+, George Papandreou+, Iasonas Kokkinos, Kevin Murphy, and Alan L Yuille (+ equal
+    contribution). <br />
+    [[link]](http://arxiv.org/abs/1606.00915). TPAMI 2017.
+
+2.  **Rethinking Atrous Convolution for Semantic Image Segmentation**<br />
+    Liang-Chieh Chen, George Papandreou, Florian Schroff, Hartwig Adam.<br />
+    [[link]](http://arxiv.org/abs/1706.05587). arXiv: 1706.05587, 2017.
+
+3. **CityScapes**<br />
+    [[link]](https://www.cityscapes-dataset.com)
+
+3. **DeepLab V3 Pytorch Implementation**<br />
+    [[link]](https://github.com/fregu856/deeplabv3)
