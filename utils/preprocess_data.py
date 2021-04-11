@@ -103,7 +103,7 @@ if not os.path.exists(cityscapes_meta_path + "/label_imgs"):
     os.makedirs(cityscapes_meta_path + "/label_imgs")
 
 image_dir = cityscapes_data_path + "/leftImg8bit/train/"
-label_dir = cityscapes_data_path + "/gtFine/train"
+label_dir = cityscapes_data_path + "/gtFine/train/"
 
 # store all the label paths
 train_label_image_paths = []
@@ -116,14 +116,15 @@ for train_dir in train_dirs:
     file_names       = os.listdir(train_image_path)
 
     for file_name in file_names:
-
+        # print(file_name)
         image_id            = file_name.split("_leftImg8bit.png")[0]
 
         gtFine_image_path   = train_label_path + image_id + "_gtFine_labelIds.png"
+        # print(gtFine_image_path)
         gt_Fine_image       = cv2.imread(gtFine_image_path, -1) # shape: 1024, 2048
 
         label_image         = id_to_trainId_map_func(gt_Fine_image)
-        label_image         = label_img.astype(np.uint8)
+        label_image         = label_image.astype(np.uint8)
 
         cv2.imwrite(cityscapes_meta_path + "/label_imgs/" + image_id + ".png", label_image)
         train_label_image_paths.append(cityscapes_meta_path + "/label_imgs/" + image_id + ".png")
@@ -149,3 +150,34 @@ for val_dir in val_dirs:
         
         cv2.imwrite(cityscapes_meta_path + "/label_imgs/" + image_id + ".png", label_image)
 
+# get the class weights
+
+num_classes = 20
+
+trainId_to_count = {}
+
+for trainId in range(num_classes):
+    trainId_to_count[trainId] = 0
+
+# get the number of pixels in train label images that are of each object class
+for step, label_image_path in enumerate(train_label_image_paths):
+    label_image = cv2.imread(label_image_path, -1)
+    for train_id in range(num_classes):
+        # count the number of pixels in label image which are of object class train id
+        train_id_mask  = np.equal(label_image, train_id)
+        train_id_count = np.sum(train_id_mask)
+
+        # add to the total count 
+        trainId_to_count[trainId] += train_id_count
+
+# get the class weights
+class_weights = []
+total_count = sum(trainId_to_count.values())
+for trainId, count in trainId_to_count.items():
+    trainId_prob = float(count) / float(total_count)
+    trainId_weight = 1 / (np.log(1.02 + trainId_prob))
+    class_weights.append(trainId_weight)
+
+print(class_weights)
+with open(cityscapes_meta_path + "/class_weights.pkl", "wb") as file:
+    pickle.dump(class_weights, file, protocol=2)
