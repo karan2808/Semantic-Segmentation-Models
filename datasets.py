@@ -15,7 +15,7 @@ test_dirs = ["berlin", "bielefeld", "bonn", "leverkusen", "mainz", "munich"]
 class DatasetTrain(torch.utils.data.Dataset):
     def __init__(self, cityscapes_path):
         self.img_dir = cityscapes_path + '/leftImg8bit/train/'
-        self.lbl_dir = cityscapes_path + '/gtFine/'
+        self.lbl_dir = cityscapes_path + '/meta/label_imgs/'
 
         # set image dimensions
         self.img_h = 1024
@@ -82,7 +82,7 @@ class DatasetTrain(torch.utils.data.Dataset):
 class DatasetVal(torch.utils.data.Dataset):
     def __init__(self, cityscapes_path):
         self.img_dir = cityscapes_path + '/leftImg8bit/train'
-        self.lbl_dir = cityscapes_path + '/gtFine/'
+        self.lbl_dir = cityscapes_path + '/meta/label_imgs/'
 
         # set image dimensions
         self.img_h = 1024
