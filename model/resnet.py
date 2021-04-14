@@ -28,7 +28,7 @@ class BasicBlock(nn.Module):
         self.conv1   = nn.Conv2d(in_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
         self.bn1     = nn.BatchNorm2d(out_ch)
 
-        self.conv2   = nn.Conv2d(in_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
+        self.conv2   = nn.Conv2d(out_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
         self.bn2     = nn.BatchNorm2d(out_ch)
 
         if (stride != 1) or (in_ch != out_ch_final):
@@ -108,10 +108,12 @@ class ResNet_BasicBlock(nn.Module):
         self.layer5 = make_layer(BasicBlock, in_ch=256, out_ch=512, num_blocks=num_blocks_layer_5, stride=1, dilation=4)
 
     def forward(self, x):
+        # print(x.shape)
         # x : (batch_size, 3, h, w)
         output = self.resnet(x) # batch_size, 128, h/8, w/8)
         output = self.layer4(output) # batch_size, 256, h/8, w/8
         output = self.layer5(output) # batch_size, 512, h/8, w/8
+        # print(output.shape)
         return output
 
 def ResNet18(project_dir = None):
