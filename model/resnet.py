@@ -28,7 +28,7 @@ class BasicBlock(nn.Module):
         self.conv1   = nn.Conv2d(in_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
         self.bn1     = nn.BatchNorm2d(out_ch)
 
-        self.conv2   = nn.Conv2d(in_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
+        self.conv2   = nn.Conv2d(out_ch, out_ch, kernel_size = 3, stride = stride, padding = dilation, dilation = dilation, bias = False)
         self.bn2     = nn.BatchNorm2d(out_ch)
 
         if (stride != 1) or (in_ch != out_ch_final):
