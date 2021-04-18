@@ -93,7 +93,7 @@ train_dirs = ["jena/", "zurich/", "weimar/", "ulm/", "tubingen/", "stuttgart/",
               "hamburg/", "erfurt/", "dusseldorf/", "darmstadt/", "cologne/",
               "bremen/", "bochum/", "aachen/"]
 val_dirs  = ["frankfurt/", "munster/", "lindau/"]
-test_dirs = ["berlin", "bielefeld", "bonn", "leverkusen", "mainz", "munich"]
+test_dirs = ["berlin/", "bielefeld/", "bonn/", "leverkusen/", "mainz/", "munich/"]
 
 # convert all labels to label images with trained id pixel values and save the images
 # create a meta folder to store the new modified labels
@@ -143,6 +143,27 @@ for val_dir in val_dirs:
         image_id          = file_name.split("_leftImg8bit.png")[0]
 
         gtFine_image_path = val_label_dir_path + image_id + "_gtFine_labelIds.png"
+        gtFine_image      = cv2.imread(gtFine_image_path, -1)
+
+        label_image       = id_to_trainId_map_func(gtFine_image)
+        label_image       = label_image.astype(np.uint8)
+        
+        cv2.imwrite(cityscapes_meta_path + "/label_imgs/" + image_id + ".png", label_image)
+
+image_dir = cityscapes_data_path + "/leftImg8bit/test/"
+label_dir = cityscapes_data_path + "/gtFine/test/"
+
+for test_dir in test_dirs:
+
+    test_image_dir_path = image_dir + test_dir
+    test_label_dir_path = label_dir + test_dir
+
+    file_names = os.listdir(test_image_dir_path)
+
+    for file_name in file_names:
+        image_id          = file_name.split("_leftImg8bit.png")[0]
+
+        gtFine_image_path = test_label_dir_path + image_id + "_gtFine_labelIds.png"
         gtFine_image      = cv2.imread(gtFine_image_path, -1)
 
         label_image       = id_to_trainId_map_func(gtFine_image)
