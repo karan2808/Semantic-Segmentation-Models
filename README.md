@@ -1,4 +1,4 @@
-# Semantic Segmentation Models for Foggy Weather.
+# Semantic Segmentation Models for Foggy Weather (CMU 16-824 project).
 
 This is a Pytorch implementation for training and testing different semantic segmentation models on the cityscapes dataset. We also use foggy weather data generated from the cityscpes dataset, to improve performance of baseline segmentation models in adverse weather. 
 
