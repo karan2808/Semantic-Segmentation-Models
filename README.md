@@ -1,6 +1,6 @@
-# Semantic Segmentation Models
+# Semantic Segmentation Models for Foggy Weather.
 
-This is a Pytorch implementation for training and testing different semantic segmentation models on the cityscapes dataset. 
+This is a Pytorch implementation for training and testing different semantic segmentation models on the cityscapes dataset. We also use foggy weather data generated from the cityscpes dataset, to improve performance of baseline segmentation models in adverse weather. 
 
 > **Models Currently Supported**
 >
@@ -29,6 +29,38 @@ Pre-process the dataset to convert label images to ids, using
 ```shell
 python utils/preprocess_data.py PATH_TO_CITYSCAPES_DATASET
 ```
+Foggy weather data can be downloaded using 
+```shell
+gdown https://drive.google.com/uc?id=1jIwFebKGmYuvpiN0EQ5KSYWmXjqStQac
+# unzip -q -o leftImg8bit_trainvaltest_foggy.zip
+# mv leftImg8bit_foggy cityscapes/
+```
+It should be extracted and placed in the same directory as unperturbed data. 
+
+## 🖼️ Prediction on Images
+You can predict the sementation labels on unperturbed, and foggy data at all scales using the demo script demo.py. Use the following commands,
+
+```shell
+mkdir demo
+python demo.py
+```
+The predictions of class labels will be color coded and saved as images to the demo folder. 
+
+## ⏳ Training
+You can train on cityscapes good weather or foggy weather dataset using, 
+```shell
+mkdir saved_models
+python train.py
+```
+The train command will also plot training and validation loss values at every epoch, and save the updated model at the end of each epoch to the saved_models directory. 
+
+
+## 📊 Evaluation
+Computing the class wise confusion matrix gives a good insight into the performance of a classification model. You can compute the confusion matrix for the model you trained using the command, 
+```
+python metrics/compute_confusion_mat.py --model_path 'path to your model' --fog_scale 'can be 0, 0.005, 0.01, 0.02' --dataset_path 'path to your dataset' '--compute_unperturbed'
+```
+
 
 ## References
 
