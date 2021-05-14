@@ -52,7 +52,7 @@ with torch.no_grad():
         output      = output.detach().cpu().numpy()
         lbl_img     = lbl_img.cpu().numpy()
         for i in range(batch_size):
-            current_image = convert_lbl2color(lbl_img[i])
+            current_image = convert_lbl2color(output[i])
             cv2.imwrite('demo/unperturbed_img_' + str(counter) + '.png', current_image)
             counter += 1
 
@@ -67,9 +67,13 @@ with torch.no_grad():
         output      = F.softmax(output, dim = 1)
         output      = torch.argmax(output, dim = 1)
         output      = output.detach().cpu().numpy()
+        print(output)
+        print(output.shape)
         lbl_img     = lbl_img.cpu().numpy()
+        print(lbl_img)
+        print(lbl_img.shape)
         for i in range(batch_size):
-            current_image = convert_lbl2color(lbl_img[i])
+            current_image = convert_lbl2color(output[i])
             cv2.imwrite('demo/foggy_005_image_' + str(counter) + '.png', current_image)
             counter += 1
 
@@ -85,7 +89,7 @@ with torch.no_grad():
         output      = output.detach().cpu().numpy()
         lbl_img     = lbl_img.cpu().numpy()
         for i in range(batch_size):
-            current_image = convert_lbl2color(lbl_img[i])
+            current_image = convert_lbl2color(output[i])
             cv2.imwrite('demo/foggy_01_image_' + str(counter) + '.png', current_image)
             counter += 1
 
@@ -101,6 +105,6 @@ with torch.no_grad():
         output      = output.detach().cpu().numpy()
         lbl_img     = lbl_img.cpu().numpy()
         for i in range(batch_size):
-            current_image = convert_lbl2color(lbl_img[i])
+            current_image = convert_lbl2color(output[i])
             cv2.imwrite('demo/foggy_02_image_' + str(counter) + '.png', current_image)
             counter += 1
