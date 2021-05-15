@@ -60,7 +60,7 @@ Computing the class wise confusion matrix gives a good insight into the performa
 ```
 python metrics/compute_confusion_mat.py --model_path 'path to your model' --fog_scale 'can be 0, 0.005, 0.01, 0.02' --dataset_path 'path to your dataset' '--compute_unperturbed'
 ```
-
+compute_unperturbed flag should be used if you wish to compute the confusion matrix for the model trained on good weather data. 
 
 ## References
 
