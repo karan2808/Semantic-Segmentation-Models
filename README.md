@@ -25,6 +25,8 @@ sh utils/download_dataset.sh
 ```
 _YOUR_USER_NAME_ and _YOUR_PASSWORD_ in the script should be replaced with the users credentials. 
 
+The data should then be placed in 'data/' directory.
+
 Pre-process the dataset to convert label images to ids, using
 ```shell
 python utils/preprocess_data.py PATH_TO_CITYSCAPES_DATASET
