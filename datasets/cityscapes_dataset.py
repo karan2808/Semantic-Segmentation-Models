@@ -41,7 +41,7 @@ class DATASET_CITYSCAPES(torch.utils.data.Dataset):
             images_path = self.img_dir + directory
 
             # get the file names
-            file_names = os.listdir(images_path)
+            file_names = sorted(os.listdir(images_path))
             for file_name in file_names:
               # get image id and path 
               img_id   = file_name.split("_leftImg8bit.png")[0]
@@ -56,12 +56,12 @@ class DATASET_CITYSCAPES(torch.utils.data.Dataset):
               self.examples.append(example)
         
         self.num_examples    = len(self.examples)
-        if split == "train" or split == 'val':
+        if split == "train":
             self.transforms_ = torchvision.transforms.Compose([
                 torchvision.transforms.Resize((self.new_img_h, self.new_img_w)),
-                torchvision.transforms.RandomHorizontalFlip(p=0.5),
+                # torchvision.transforms.RandomHorizontalFlip(p=0.5),
                 # torchvision.transforms.RandomVerticalFlip(p=0.5),
-                torchvision.transforms.RandomRotation(10),
+                # torchvision.transforms.RandomRotation(10),
                 torchvision.transforms.ColorJitter(
                     brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
                 torchvision.transforms.ToTensor(),
@@ -127,7 +127,7 @@ class DATASET_CITYSCAPES_FOGGY(torch.utils.data.Dataset):
             images_path = self.img_dir + directory
 
             # get the file names
-            file_names = os.listdir(images_path)
+            file_names = sorted(os.listdir(images_path))
             for file_name in file_names:
               # get image id and path 
               img_id   = file_name.split("_leftImg8bit")[0]
@@ -148,12 +148,12 @@ class DATASET_CITYSCAPES_FOGGY(torch.utils.data.Dataset):
               self.examples.append(example)
         
         self.num_examples    = len(self.examples)
-        if split == "train" or split == 'val':
+        if split == "train":
             self.transforms_ = torchvision.transforms.Compose([
                 torchvision.transforms.Resize((self.new_img_h, self.new_img_w)),
-                torchvision.transforms.RandomHorizontalFlip(p=0.5),
+                # torchvision.transforms.RandomHorizontalFlip(p=0.5),
                 # torchvision.transforms.RandomVerticalFlip(p=0.5),
-                torchvision.transforms.RandomRotation(10),
+                # torchvision.transforms.RandomRotation(10),
                 torchvision.transforms.ColorJitter(
                     brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
                 torchvision.transforms.ToTensor(),
@@ -173,7 +173,6 @@ class DATASET_CITYSCAPES_FOGGY(torch.utils.data.Dataset):
         example = self.examples[index]
         
         img_path   = example['img_path']
-        # print(img_path)
         img        = Image.open(img_path)
         # img        = img.astype(np.float32)
         img        = self.transforms_(img)
@@ -191,5 +190,3 @@ class DATASET_CITYSCAPES_FOGGY(torch.utils.data.Dataset):
 
     def __len__(self):
         return self.num_examples
-
-
