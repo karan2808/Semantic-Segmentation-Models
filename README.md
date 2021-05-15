@@ -61,6 +61,12 @@ Computing the class wise confusion matrix gives a good insight into the performa
 python metrics/compute_confusion_mat.py --model_path 'path to your model' --fog_scale 'can be 0, 0.005, 0.01, 0.02' --dataset_path 'path to your dataset' '--compute_unperturbed'
 ```
 compute_unperturbed flag should be used if you wish to compute the confusion matrix for the model trained on good weather data. 
+Two models have been provided in the pretrained models folder, one trained on good weather cityscapes data for 150 epochs, and the other one trained using this pretrained model on foggy data for 20 epochs. 
+
+The average precision values for each class can then be computed using, 
+```
+python metrics/compute_ap.py --conf_mat_path "path to your confusion matrix" --fog_intensity "the fog intensity, can be 0, 0.005, 0.1, 0.2"
+```
 
 ## References
 
